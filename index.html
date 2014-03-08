@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Compare my Commute Carbon Cost</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      #map-canvas {
+	height: 100%;
+	margin: 0px;
+	padding: 0px
+      }
+    </style>
+    <!--
+    Include the maps javascript with sensor=true because this code is using a
+    sensor (a GPS locator) to determine the user's location.
+    See: https://developers.google.com/maps/documentation/javascript/tutorial#Loading_the_Maps_API
+    -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCILDWIzPNGhrLe6hk23fp9VeXHv4NMSvg&sensor=true"></script> -->
+  </head>
+  <body>
+    <form>
+      <fieldset>
+	<legend>Route</legend>
+	<p>
+	  <label for=start>Start location</label>
+	  <input type=text id=start />
+	</p>
+	<p>
+	  <label for=end>End location</label>
+	  <input type=text id=end />
+	</p>
+      </fieldset>
+    </form>
+    <div id="map-canvas"></div>
+
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>
