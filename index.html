@@ -1,66 +1,11 @@
 <html>
-	<head>
+<head>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 		<title>Footprint</title>
-		<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/cyborg/bootstrap.min.css"/>
-		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-		<script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		<script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-		<![endif]-->
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCILDWIzPNGhrLe6hk23fp9VeXHv4NMSvg&amp;sensor=false"></script>
 		<style type="text/css">
-			#select_route {
-				position: absolute;
-				bottom: -20px;
-				left: 0;
-				height: auto;
-				width: 100%;
-				background: rgba(0,0,0,0.8);
-				padding: 10px 20px;
-				z-index: 2;
-			}
-			
-			#select_route .row {
-				margin-bottom: 10px;
-			}
-			
-			#select_route .control-label {
-				color: #fff;
-			}
-			
-			@media (min-width: 768px) {
-				/* Add spacing between labels and previous elements on non-mobile displays*/
-				#select_route .control-label {
-					margin-left: 10px;
-				}
-			}
-			
 			#map_canvas { 
-				position: absolute;
-				top: 0;
-				left: 0;
-				height: 100%;
-				width: 100%;
-				background: red;
-				z-index: 1;
-			}
-			
-			@media (max-width: 767px) {
-				/* On mobile displays, display controls above map */
-				#map_canvas { 
-					position: relative;
-					height: 500px;
-					background: red;
-				}
-				#select_route {
-					position: relative;
-					top: 0;
-				}
+				height: 70%;
 			}
 		</style>
 		<script type="text/javascript">
@@ -86,7 +31,7 @@
 			var end = document.getElementById("end").value;
 			var distanceInput = document.getElementById("distance");
 			var footprintInput = document.getElementById("footprint");
-			var methodTransport = document.getElementById("method").value;
+			var methodTransport = document.getElementById("method").value;	
 			var request = {
 				origin:start, 
 				destination:end,
@@ -109,40 +54,34 @@
 		</script>
 	</head>
 	<body onload="initialize()">
-		<form id="select_route" class="form-inline" role="form">
-			<div class="row">
-					<div class="form-group">
-						<label for="start" class="control-label">Start:</label>
-						<input class="form-control" type="text" name="start" id="start" placeholder="Street or postcode"/>
-					</div>
-					<div class="form-group">
-						<label for="end" class="control-label">End:</label>
-						<input class="form-control" type="text" name="end" id="end" placeholder="Street or postcode" />
-					</div>
-					<div class="form-group">
-						<label for="method" class="control-label">Via:</label>
-						<select class="form-control" name="method" id="method">
-							<option value="DRIVING">Car</option>
-							<option value="TRANSIT">Bus</option>
-							<option value="BICYCLING">Bike</option>
-							<option value="WALKING">Walk</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<input class="btn btn-success" type="submit" value="Calculate Route" onclick="calcRoute()" />
-					</div>
-			</div>
-			<div class="row">
-				<div class="form-group">
-					<label for="distance" class="control-label">Distance (km): </label>
-					<input class="form-control" type="text" name="distance" id="distance" readonly="true"/>
-				</div>
-				<div class="form-group">
-					<label for="footprint" class="control-label">Footprint: (gCO2) </label>
-					<input class="form-control" type="text" name="footprint" id="footprint" readonly="true">
-				</div>
-			</div>
-		</form>
+		<fieldset>
+			<legend>Route</legend>
+			<p>
+				<label for="start">Start: </label>
+				<input type="text" name="start" id="start" />
+				
+				<label for="end">End: </label>
+				<input type="text" name="end" id="end" />
+				
+				<label for="method">Method: </label>
+				<select name="method" id="method">
+					<option value="DRIVING">Car</option>
+					<option value="TRANSIT">Bus</option>
+					<option value="BICYCLING">Bike</option>
+					<option value="WALKING">Walk</option>
+				</select>
+
+				<input type="submit" value="Calculate Route" onclick="calcRoute()" />
+			</p>
+			<p>
+				<label for="distance">Distance (km): </label>
+				<input type="text" name="distance" id="distance" readonly="true" />
+
+				<label for="footprint">Footprint: (gCO2) </label>
+				<input type="text" name="footprint" id="footprint" readonly="true">
+			</p>
+		</fieldset>
 		<div id="map_canvas"></div>
 	</body>
 </html>
+
