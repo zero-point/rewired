@@ -15,57 +15,65 @@
 
 <nav class="navbar navbar-default"
      role="navigation">
-  <div class="container-fluid">
-    <a href="/"
-       class="navbar-brand">Footprint</a>
-    <form id="routing"
-          class="navbar-form navbar-right"
-          role="form">
-      <div class="form-group">
-        <label for="start"
-               class="sr-only">Start</label>
-        <div class="input-group">
-          <span class="input-group-btn">
-            <button id="geolocate"
-                    class="btn btn-default"
-                    title="Find my location"
-                    disabled>
-              <span class="glyphicon glyphicon-globe"></span>
-              <span class="sr-only">Geolocate</span>
-            </button>
-          </span>
-          <input id="start"
-                 name="start"
-                 class="form-control"
-                 placeholder="Start"
-                 required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="end"
-               class="sr-only">End</label>
-        <input id="end"
-               name="end"
-               class="form-control"
-               placeholder="End">
-      </div>
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button"
+              class="navbar-toggle"
+              data-toggle="collapse"
+              data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/"
+         class="navbar-brand">Footprint</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <form id="routing"
+            class="navbar-form navbar-right"
+            role="form">
         <div class="form-group">
-          <label for="method"
-                 class="sr-only">Method</label>
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button id="geolocate"
+                      class="btn btn-default"
+                      title="Find my location"
+                      disabled>
+                <span class="glyphicon glyphicon-globe"></span>
+                <span class="sr-only">Geolocate</span>
+              </button>
+            </span>
+            <input id="start"
+                   name="start"
+                   class="form-control"
+                   placeholder="Start"
+                   required>
+          </div>
+        </div>
+        <div class="form-group">
+          <input id="end"
+                 name="end"
+                 class="form-control"
+                 placeholder="End">
+        </div>
+        <div class="form-group">
           <select id="method"
                   name="method"
                   class="form-control">
             <option value="DRIVING">Driving</option>
-            <option value="TRANSIT">Public Transport</option>
+            <option value="TRANSIT">Public transport</option>
             <option value="BICYCLING">Cycling</option>
             <option value="WALKING">Walking</option>
           </select>
         </div>
-        <input id="submit"
-               type="submit"
-               class="btn btn-primary"
-               value="Calculate Route">
-    </form>
+        <button id="submit"
+                type="submit"
+                class="btn btn-primary">
+          Footprint!
+        </button>
+      </form>
+    </div>
   </div>
 </nav>
 <div class="container">
