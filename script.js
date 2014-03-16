@@ -1,53 +1,51 @@
-var directionsDisplay, google, map,
-	directionsService = new google.maps.DirectionsService();
+var google,
+	maps = google.maps;
 
-function
-initialize()
-{
-	var loc = new google.maps.LatLng( 55.8580, -4.2590 ),
-		myOptions = {
-			zoom:12,
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			center: loc
+window.onload = function () {
+	'use strict';
+
+	var map = new maps.Map( document.getElementById( 'map' ), {
+		zoom: 12,
+		mapTypeId: maps.MapTypeId.ROADMAP,
+		center: new maps.LatLng( 55.8580, -4.2590 )
+	}),
+		directions = {
+			service: new maps.DirectionsService(),
+			renderer: new maps.DirectionsRenderer()
 		};
-
-	directionsDisplay = new google.maps.DirectionsRenderer();
-	map = new google.maps.Map( document.getElementById( 'map' ), myOptions );
-	directionsDisplay.setMap( map );
 
 	document.getElementById( 'routing' ).onclick = function ( event ) {
 		event.preventDefault();
-		calcRoute();
+
+		directions.renderer.setMap( map );
+
+		directions.service.route({
+			origin: document.getElementById( 'start' ).value,
+			destination: document.getElementById( 'end' ).value,
+			travelMode: document.getElementById( 'method' ).value.toUpperCase()
+		}, function ( response, status ) {
+			if ( status == 'OK' ) {
+				var distance = response.routes[0].legs[0].distance.value / 1000;
+
+				directions.renderer.setDirections( response );
+				document.getElementById( 'distance' ).textContent = distance;
+				document.getElementById( 'footprint' ).textContent
+					= kmToGCO2( distance, document.getElementById( 'method' ).value );
+			}
+		});
 	};
-}
+};
 
 function
-calcRoute()
+kmToGCO2( distance, transport )
 {
-	var start = document.getElementById( 'start' ).value,
-		end = document.getElementById( 'end' ).value,
-		distanceEl = document.getElementById( 'distance' ),
-		footprintEl = document.getElementById( 'footprint' ),
-		methodTransport = document.getElementById( 'method' ).value,
-		request = {
-			origin: start,
-			destination: end,
-			travelMode: google.maps.DirectionsTravelMode[methodTransport]
-		};
+	var multiplier = 0;
 
-	directionsService.route( request, function ( response, status ) {
-		if ( status == google.maps.DirectionsStatus.OK ) {
-			directionsDisplay.setDirections( response );
-			distanceEl.textContent = response.routes[0].legs[0].distance.value / 1000;
-			if ( methodTransport == 'DRIVING' ) {
-				footprintEl.textContent = distanceEl.textContent * 430 * 0.62137;
-			} else if ( methodTransport == 'TRANSIT' ) {
-				footprintEl.textContent = distanceEl.textContent * 89;
-			} else {
-				footprintEl.textContent = 0;
-			}
-		}
-	});
+	if ( transport.toLowerCase() == 'transit' ) {
+		multiplier = 89;
+	} else if ( transport.toLowerCase() == 'driving' ) {
+		multiplier = 430 * 0.62137;
+	}
+
+	return distance * multiplier;
 }
-
-window.onload = initialize;
