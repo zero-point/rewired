@@ -1,4 +1,4 @@
-#select_route {
+#routing {
     position: absolute;
     bottom: -20px;
     left: 0;
@@ -9,22 +9,22 @@
     z-index: 2;
 }
 
-#select_route .row {
+#routing .row {
     margin-bottom: 10px;
 }
 
-#select_route .control-label {
+#routing .control-label {
     color: #fff;
 }
 
 @media (min-width: 768px) {
     /* Add spacing between labels and previous elements on non-mobile displays*/
-    #select_route .control-label {
+    #routing .control-label {
         margin-left: 10px;
     }
 }
 
-#map_canvas {
+#map {
     position: absolute;
     top: 0;
     left: 0;
@@ -36,12 +36,12 @@
 
 @media (max-width: 767px) {
     /* On mobile displays, display controls above map */
-    #map_canvas {
+    #map {
         position: relative;
         height: 500px;
         background: red;
     }
-    #select_route {
+    #routing {
         position: relative;
         top: 0;
     }

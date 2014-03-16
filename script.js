@@ -12,10 +12,10 @@ initialize()
 		};
 
 	directionsDisplay = new google.maps.DirectionsRenderer();
-	map = new google.maps.Map( document.getElementById( 'map_canvas' ), myOptions );
+	map = new google.maps.Map( document.getElementById( 'map' ), myOptions );
 	directionsDisplay.setMap( map );
 
-	document.getElementById( 'select_route' ).onclick = function ( event ) {
+	document.getElementById( 'routing' ).onclick = function ( event ) {
 		event.preventDefault();
 		calcRoute();
 	};
