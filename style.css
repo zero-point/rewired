@@ -1,0 +1,48 @@
+#select_route {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    height: auto;
+    width: 100%;
+    background: rgba(0,0,0,0.8);
+    padding: 10px 20px;
+    z-index: 2;
+}
+
+#select_route .row {
+    margin-bottom: 10px;
+}
+
+#select_route .control-label {
+    color: #fff;
+}
+
+@media (min-width: 768px) {
+    /* Add spacing between labels and previous elements on non-mobile displays*/
+    #select_route .control-label {
+        margin-left: 10px;
+    }
+}
+
+#map_canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: red;
+    z-index: 1;
+}
+
+@media (max-width: 767px) {
+    /* On mobile displays, display controls above map */
+    #map_canvas {
+        position: relative;
+        height: 500px;
+        background: red;
+    }
+    #select_route {
+        position: relative;
+        top: 0;
+    }
+}
