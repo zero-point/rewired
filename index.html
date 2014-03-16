@@ -13,64 +13,68 @@
 
 <!--[if lt IE 9]><script src="//oss.maxcdn.com/html5shiv/3.7.0/html5shiv.js"></script><![endif]-->
 
-<form id="routing"
-      class="form-inline"
-      role="form">
-  <div class="row">
-    <div class="form-group">
-      <label for="start"
-             class="control-label">Start:</label>
-      <input id="start"
-             name="start"
-             class="form-control"
-             placeholder="Street or postcode">
-    </div>
-    <div class="form-group">
-      <label for="end"
-             class="control-label">End:</label>
-      <input id="end"
-             name="end"
-             class="form-control"
-             placeholder="Street or postcode">
-    </div>
-    <div class="form-group">
-      <label for="method"
-             class="control-label">Via:</label>
-      <select  id="method"
-               name="method"
-               class="form-control">
-        <option value="DRIVING">Car</option>
-        <option value="TRANSIT">Bus</option>
-        <option value="BICYCLING">Bike</option>
-        <option value="WALKING">Walk</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <input id="submit"
-             type="submit"
-             class="btn btn-success"
-             value="Calculate Route">
-    </div>
+<nav class="navbar navbar-default"
+     role="navigation">
+  <div class="container-fluid">
+    <a href="/"
+       class="navbar-brand">Footprint</a>
+    <form id="routing"
+          class="navbar-form navbar-right"
+          role="form">
+      <div class="form-group">
+        <label for="start"
+               class="sr-only">Start</label>
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button id="geolocate"
+                    class="btn btn-default"
+                    title="Find my location"
+                    disabled>
+              <span class="glyphicon glyphicon-globe"></span>
+              <span class="sr-only">Geolocate</span>
+            </button>
+          </span>
+          <input id="start"
+                 name="start"
+                 class="form-control"
+                 placeholder="Start"
+                 required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="end"
+               class="sr-only">End</label>
+        <input id="end"
+               name="end"
+               class="form-control"
+               placeholder="End">
+      </div>
+        <div class="form-group">
+          <label for="method"
+                 class="sr-only">Method</label>
+          <select id="method"
+                  name="method"
+                  class="form-control">
+            <option value="DRIVING">Driving</option>
+            <option value="TRANSIT">Public Transport</option>
+            <option value="BICYCLING">Cycling</option>
+            <option value="WALKING">Walking</option>
+          </select>
+        </div>
+        <input id="submit"
+               type="submit"
+               class="btn btn-primary"
+               value="Calculate Route">
+    </form>
   </div>
-  <div class="row">
-    <div class="form-group">
-      <label for="distance"
-             class="control-label">Distance (km): </label>
-      <input id="distance"
-             name="distance"
-             class="form-control"
-             readonly>
-    </div>
-    <div class="form-group">
-      <label for="footprint"
-             class="control-label">Footprint (gCO2): </label>
-      <input id="footprint"
-             name="footprint"
-             class="form-control"
-             readonly>
-    </div>
+</nav>
+<div class="container">
+  <div class="alert alert-info">
+    <p><span id="footprint">0</span> <abbr title="grams of carbon dioxide">gCO<sub>2</sub></abbr>
+      emitted after travelling <span id="distance">0</span> km.</p>
   </div>
-</form>
+</div>
+
 <div id="map"></div>
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
