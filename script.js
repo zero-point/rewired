@@ -1,9 +1,9 @@
+'use strict';
+
 var google,
 	maps = google.maps;
 
 window.onload = function () {
-	'use strict';
-
 	var map = new maps.Map( document.getElementById( 'map' ), {
 		zoom: 12,
 		mapTypeId: maps.MapTypeId.ROADMAP,
@@ -14,15 +14,19 @@ window.onload = function () {
 			renderer: new maps.DirectionsRenderer()
 		};
 
-	document.getElementById( 'routing' ).onclick = function ( event ) {
+	document.getElementById( 'submit' ).onclick = function ( event ) {
+		var start = document.getElementById( 'start' ).value,
+			end = document.getElementById( 'end' ).value,
+			method = document.getElementById( 'method' ).value;
+
 		event.preventDefault();
 
 		directions.renderer.setMap( map );
 
 		directions.service.route({
-			origin: document.getElementById( 'start' ).value,
-			destination: document.getElementById( 'end' ).value,
-			travelMode: document.getElementById( 'method' ).value.toUpperCase()
+			origin: start,
+			destination: end,
+			travelMode: method.toUpperCase()
 		}, function ( response, status ) {
 			if ( status == 'OK' ) {
 				var distance = response.routes[0].legs[0].distance.value / 1000;
@@ -30,7 +34,9 @@ window.onload = function () {
 				directions.renderer.setDirections( response );
 				document.getElementById( 'distance' ).textContent = distance;
 				document.getElementById( 'footprint' ).textContent
-					= kmToGCO2( distance, document.getElementById( 'method' ).value );
+					= kmToGCO2( distance, method ).toFixed();
+			} else {
+				console.log( 'Routing failed with status ' + status );
 			}
 		});
 	};
