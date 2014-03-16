@@ -1,55 +1,52 @@
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see a blank space instead of the map, this
-// is probably because you have denied permission for location sharing.
+ var directionsDisplay;
+ var google, directionsService = new google.maps.DirectionsService();
+ var map;
 
-var map;
+ function initialize()
+ {
+   directionsDisplay = new google.maps.DirectionsRenderer();
+   var loc = new google.maps.LatLng(55.8580, -4.2590);
+   var myOptions = {
+	 zoom:12,
+	 mapTypeId: google.maps.MapTypeId.ROADMAP,
+	 center: loc
+   };
 
-function initialize() {
-  var mapOptions = {
-//	center: new google.maps.LatLng(55.8580, -4.2590),
-	zoom: 6
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+   directionsDisplay.setMap(map);
 
-  // Try HTML5 geolocation
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
-				       position.coords.longitude);
+   document.getElementById("select_route").onclick = function(event) {
+	 event.preventDefault();
+	 calcRoute();
+   };
+ }
 
-      var infowindow = new google.maps.InfoWindow({
-	map: map,
-	position: pos,
-	content: 'Location found using HTML5.'
-      });
+function calcRoute()
+ {
+   var start = document.getElementById("start").value;
+   var end = document.getElementById("end").value;
+   var distanceInput = document.getElementById("distance");
+   var footprintInput = document.getElementById("footprint");
+   var methodTransport = document.getElementById("method").value;
+   var request = {
+	 origin:start,
+	 destination:end,
+	 travelMode: google.maps.DirectionsTravelMode[methodTransport]
+   };
 
-      map.setCenter(pos);
-    }, function() {
-      handleNoGeolocation(true);
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleNoGeolocation(false);
-  }
-}
+   directionsService.route(request, function(response, status) {
+	 if (status == google.maps.DirectionsStatus.OK) {
+	   directionsDisplay.setDirections(response);
+	   distanceInput.value = response.routes[0].legs[0].distance.value / 1000;
+	   if (methodTransport == "DRIVING") {
+		 footprintInput.value = distanceInput.value * 430 * 0.62137;
+	   } else if (methodTransport == "TRANSIT") {
+	   footprintInput.value = distanceInput.value * 89;
+	   } else {
+		 footprintInput.value = 0;
+	   }
+	 }
+   });
+ }
 
-function handleNoGeolocation(errorFlag) {
-    var content;
-  if (errorFlag) {
-    content = 'Error: The Geolocation service failed.';
-  } else {
-    content = 'Error: Your browser doesn\'t support geolocation.';
-  }
-
-  var options = {
-    map: map,
-    position: new google.maps.LatLng(60, 105),
-    content: content
-  };
-
-  var infowindow = new google.maps.InfoWindow(options);
-  map.setCenter(options.position);
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
+ window.onload = initialize;
